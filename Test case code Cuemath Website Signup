@@ -1,0 +1,33 @@
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+import unittest
+import HtmlTestRunner
+
+
+class webSignup(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.driver = webdriver.Chrome(ChromeDriverManager().install())
+        cls.driver.implicitly_wait(10)
+        cls.driver.maximize_window()
+
+    def test_Web_Signup(self):
+        self.driver.get("https://trialclass.cuemath.com/ind/minimal-form-new/?utm_source=d_sem_m&utm_medium=ind_sok_go_sem_search_brand-6cities_exact_p-math&utm_campaign=cuemath&utm_content=541893802738_kwd-944541968047&utm_source=D_g&utm_medium=Ind_Sok_Go_Sem_Search_Brand-6cities_Exact_P-Math&utm_campaign=Cuemath&utm_content=&gclid=CjwKCAjwsJ6TBhAIEiwAfl4TWINF5MiPexh8JQZ0PSz5cu4_XdS-kVNoQb3F3vC5arZz8fvr8Wk5ohoCAOQQAvD_BwE")
+        self.driver.find_element_by_name("parents_name").send_keys("John")
+        self.driver.find_element_by_name("email").send_keys("abc@xyz.com")
+        self.driver.find_element_by_name("phone").send_keys("9629694358")
+        self.driver.find_element_by_name("childs_name").send_keys("Mike")
+        self.driver.find_element_by_id("ub-option-select_grade_class-item-3").click()
+        self.driver.find_element_by_id("do_you_have_a_laptoppc_no").click()
+        self.driver.find_element_by_id("lp-pom-button-44").click()
+
+    @classmethod
+    def tearDownClass(cls):
+        #cls.driver.close()
+        #cls.driver.quit()
+        print("Test completed")
+
+
+if __name__ == "__main__":
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='/Users/balasubramanyammv/PycharmProjects/FirstProject/Reports/Report.html'))
