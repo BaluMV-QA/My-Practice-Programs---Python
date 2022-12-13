@@ -1,0 +1,181 @@
+from testbase.framework.pages.base import BasePage
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
+
+
+
+class TeacherHomePage(BasePage):
+    """ "By locators -- OR"""
+
+    HOME_TAB = (By.ID, "nav-bar-step-1")
+    STUDENTS_TAB = (By.ID, "nav-bar-step-3")
+    CLASS_TAB = (By.ID, "nav-bar-step-2")
+    CALENDER_TAB = (By.ID, "nav-bar-step-4")
+    LEAD_TAB = (By.XPATH, "//a[@href = '/leads/']")
+    DEMO_TAB = (By.ID, "trigger-lead-management")
+    ADD_LEAD = (By.XPATH, "//a[@href='/parents/']")
+    DEMOS_TAB = (By.XPATH, "//a[@href='/demodashboard/']")
+    UPCOMING_DEMO = (By.XPATH, "//*[text()='Upcoming Demos']")
+    EARNING_TAB = (By.XPATH, "//a[@href = '/earnings/']")
+    EARNING_TEXT = (By.XPATH, "//*[contains(text(),'Demo Earnings:')]")
+    PROFILE_TAB = (By.XPATH, "//body/div[@id='root']/div[@class='sc-eetwQk fOpWNA']/header[@class='sc-iNovjJ izDUaF']/div[@class='sc-frDJqD sc-fEVUGC kVqtus']/div[@class='sc-kyCyAI buLaGg']/div[3]/div[1]")
+    # SUPPORT_TAB = (By.XPATH, "//img[@alt='help']")
+    SUPPORT_TAB = (By.XPATH, "/html[1]/body[1]/div[1]/div[2]/header[1]/div[1]/div[2]/div[2]/div[1]/div[1]/img[1]")
+    NOTIFICATION_TAB = (By.XPATH, "(//div[@class='sc-fUdGnz fDIhRg'])[1]")
+    NOTIFICATION_HEADER = (By.XPATH, "//*[contains(text(), 'Notifications']")
+    RAISE_TICKET = (By.XPATH, "//*[contains(text(),' Raise a ticket ')]")
+    HELPDESK = (By.XPATH, "//div[contains(text(),'Helpdesk')]")
+    RESOURCE_CENTRE = (By.XPATH, "//div[contains(text(),'Resource centre')]")
+    CLOSE_TAB = (By.XPATH, "//img[@alt='close']")
+    CANCEL_BUTTON = (By.XPATH, "//div[@class='sc-hwwEjo jcSohR']")
+    PROFILE_ICON = (By.XPATH, "/html[1]/body[1]/div[1]/div[2]/header[1]/div[1]/div[2]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]")
+    MY_PROFILE = (By.XPATH, "//div[contains(text(),'My profile')]")
+    PRACTICE_CUEBOARD = (By.XPATH, "/html[1]/body[1]/div[3]/div[2]/header[1]/div[1]/div[2]/div[3]/div[1]/div[1]/div[2]/div[2]/a[1]/div[1]/div[1]")
+    REVIEWS = (By.XPATH, "//a[@href = '/reviews/']")
+    SYSTEM_CHECK = (By.CSS_SELECTOR, ".sc-cJSrbW.sc-dBaXSw.fXTvba")
+    ALL_SESSION_LOGOUT = (By.XPATH, "(//div[@class='sc-cJSrbW sc-cmIlrE koNEir'])[1]")
+    LOGOUT = (By.XPATH, "(//div[@class='sc-cJSrbW sc-fHSTwm hulrO'])[1]")
+    CURRICULUM_TAB = (By.XPATH, "//*[text()='Curriculum']")
+    ELECTIVES_TAB = (By.XPATH, "//*[text()='Electives']")
+    PROGRESS_TAB = (By.XPATH, "//*[text()='Progress']")
+    STUDENT_PROFILE_TAB = (By.XPATH, "//*[text()='Profile']")
+    LEADS_TAB = (By.XPATH, "//*[text()= 'Leads']")
+    EXAMS_TAB = (By.XPATH, "//div[contains(text(),'Exams')]")
+    EXAM_DATE_EDIT_PEN = (By.XPATH, "(//img[@alt='edit-pen'])[1]")
+    EXAM_DATE_FIELD = (By.XPATH, "//input[@id='']")
+    EXAM_DATE_SUBMIT_BUTTON = (By.XPATH, "//div[@class='sc-kcbnda sc-hcmgZB eBTJHP']")
+
+
+
+    """"constructor of the Page Class"""
+
+    def __init__(self, driver):
+        super().__init__(driver)
+
+    """"Page Actions"""
+
+    """"this is used to get page title"""
+
+    def get_student_tab(self):
+        if self.is_visible(self.STUDENTS_TAB):
+            self.do_click(self.STUDENTS_TAB)
+            return self.get_element_text(self.STUDENTS_TAB)
+
+
+    def get_curriculum_tab(self):
+        if self.is_visible(self.CURRICULUM_TAB):
+            self.do_click(self.CURRICULUM_TAB)
+            return True
+        else:
+            return False
+
+    def get_exams_tab(self):
+        if self.is_visible(self.EXAMS_TAB):
+            self.do_click(self.EXAMS_TAB)
+            return True
+        else:
+            return False
+
+    # def add_exam_date(self):
+    #     self.do_click(self.EXAM_DATE_EDIT_PEN)
+    #     self.do_send_keys(self.EXAM_DATE_FIELD, "20/07/2022")
+    #     self.do_click(self.EXAM_DATE_SUBMIT_BUTTON)
+
+
+    def get_electives_tab(self):
+        if self.is_visible(self.ELECTIVES_TAB):
+            self.do_click(self.ELECTIVES_TAB)
+            return True
+        else:
+            return False
+
+    def get_progress_tab(self):
+        if self.is_visible(self.PROGRESS_TAB):
+            self.do_click(self.PROGRESS_TAB)
+            return True
+        else:
+            return False
+
+    def get_student_profile_tab(self):
+        if self.is_visible(self.STUDENT_PROFILE_TAB):
+            self.do_click(self.STUDENT_PROFILE_TAB)
+            return True
+        else:
+            return False
+
+
+
+    def get_classes_tab(self):
+        if self.is_visible(self.CLASS_TAB):
+            self.do_click(self.CLASS_TAB)
+            return self.get_element_text(self.CLASS_TAB)
+
+    def get_calender_tab(self):
+        self.do_click(self.CALENDER_TAB)
+        return self.is_visible(self.CALENDER_TAB)
+
+    def get_lead_management_tab(self):
+        self.do_click(self.DEMO_TAB)
+        self.do_click(self.LEAD_TAB)
+        return self.get_element_text(self.ADD_LEAD)
+
+    def get_demo_tab(self):
+        self.do_click(self.DEMO_TAB)
+        self.do_click(self.DEMOS_TAB)
+        return self.is_visible(self.UPCOMING_DEMO)
+
+    def get_demo_management_tab(self):
+        self.do_click(self.DEMO_TAB)
+        return self.get_element_text(self.DEMO_TAB)
+
+    def get_leads_tab(self):
+        if self.is_visible(self.LEADS_TAB):
+            self.do_click(self.LEADS_TAB)
+            return True
+        else:
+            return False
+
+    def get_earning_tab(self):
+        self.do_click(self.DEMO_TAB)
+        self.do_click(self.EARNING_TAB)
+        return self.is_visible(self.EARNING_TEXT)
+
+    def get_notification_tab(self):
+        self.do_click(self.NOTIFICATION_TAB)
+        if self.do_click(self.CLOSE_TAB):
+            return "True"
+        else:
+            return "False"
+
+    def get_support_tab(self):
+        self.do_click(self.SUPPORT_TAB)
+
+    def get_raise_ticket_tab(self):
+        self.do_click(self.SUPPORT_TAB)
+        return self.is_visible(self.RAISE_TICKET)
+
+    def get_helpdesk_tab(self):
+        return self.get_element_text(self.HELPDESK)
+
+    def get_resource_centre_tab(self):
+        return self.get_element_text(self.RESOURCE_CENTRE)
+
+
+    def get_profile_icon(self):
+        self.do_click(self.PROFILE_ICON)
+        return self.get_element_text(self.PROFILE_ICON)
+
+    def get_my_profile_tab(self):
+        return self.get_element_text(self.MY_PROFILE)
+
+    def get_practice_cueboard_tab(self):
+        return self.get_element_text(self.PRACTICE_CUEBOARD)
+
+    def get_system_check_tab(self):
+        return self.is_visible(self.SYSTEM_CHECK)
+
+    def get_logout_all_session_tab(self):
+        return self.is_visible(self.ALL_SESSION_LOGOUT)
+
+    def get_logout_tab(self):
+        return self.is_visible(self.LOGOUT)
