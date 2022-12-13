@@ -1,0 +1,443 @@
+from testbase.framework.testcases.test_base import BaseTest
+from testbase.framework.pages.teacher_loginpage import TeacherLoginPage
+from testbase.framework.pages.teacher_homepage import TeacherHomePage
+from testbase.framework.constants.label import WebsiteLabel
+import time
+import pytest
+from testbase.framework.constants.testdata import TestData
+from testbase.framework.utilities.customLogger import LogGen
+from selenium import webdriver
+import allure
+from allure_commons.types import AttachmentType
+
+
+class Test_TeacherHomePage(BaseTest):
+    # option = webdriver.ChromeOptions()
+    # driver = webdriver.Remote(command_executor='http://localhost:4444/wd/hub', options=option)
+    logger = LogGen.loggen()
+
+    @pytest.mark.sanity
+    def test_student_tab_title(self):
+        self.logger.info("*************** TEST TEACHER HOME PAGE *****************")
+        self.teacherLoginPage = TeacherLoginPage(self.driver)
+        self.logger.info(
+            "*************** TESTING VISIBILITY OF STUDENT TAB*****************"
+        )
+        self.logger.info("****Started Teacher LOGIN****")
+        self.teacherLoginPage.do_login(TestData.TEACHER_USER_NAME, TestData.OTP)
+        time.sleep(2)
+        self.logger.info("****TEACHER LOGIN SUCCESSFUL ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        header = self.teacherHomePage.get_student_tab()
+        if header == WebsiteLabel.STUDENT_HEADER:
+            self.logger.info("**** teacher student tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher student tab test failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_student_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_curriculum_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** teacher curriculum tab test ****")
+        header = self.teacherHomePage.get_curriculum_tab()
+        if header:
+            self.logger.info("**** teacher curriculum tab test passed ****")
+            assert True
+        else:
+            self.logger.info("**** teacher curriculum tab test failed ****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_curriculum_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_exams_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** teacher exam tab test ****")
+        header = self.teacherHomePage.get_exams_tab()
+        if header:
+            self.logger.info("**** teacher exam tab test passed ****")
+            assert True
+        else:
+            self.logger.info("**** teacher exam tab test failed ****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_exam_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+
+    def add_exam_date(self):
+        self.do_click(self.EXAM_DATE_EDIT_PEN)
+        self.do_send_keys(self.EXAM_DATE_FIELD, "20/07/2022")
+        self.do_click(self.EXAM_DATE_SUBMIT_BUTTON)
+
+    @pytest.mark.sanity
+    def test_electives_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** teacher electives tab test ****")
+        header = self.teacherHomePage.get_electives_tab()
+        if header:
+            self.logger.info("**** teacher electives tab test passed ****")
+            assert True
+        else:
+            self.logger.info("**** teacher electives tab test failed ****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_electives_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_progress_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** teacher progress tab test ****")
+        header = self.teacherHomePage.get_progress_tab()
+        if header:
+            self.logger.info("**** teacher progress tab test passed ****")
+            assert True
+        else:
+            self.logger.info("**** teacher progress tab test failed ****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_progress_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_student_profile_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** student profile tab test ****")
+        header = self.teacherHomePage.get_student_profile_tab()
+        if header:
+            self.logger.info("**** student profile tab test passed ****")
+            assert True
+        else:
+            self.logger.info("**** student profile tab test failed ****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_progress_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_classroom_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** teacher classroom tab test ****")
+        header = self.teacherHomePage.get_classes_tab()
+        if header == WebsiteLabel.CLASSES_HEADER:
+            self.logger.info("**** teacher classroom tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher classroom tab test failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_classroom_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+
+
+    @pytest.mark.sanity
+    def test_calender_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** teacher classroom tab test ****")
+        header = self.teacherHomePage.get_calender_tab()
+        if header:
+            self.logger.info("**** teacher classroom tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher classroom tab test failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_classroom_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_leads_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** teacher leads tab test ****")
+        header = self.teacherHomePage.get_lead_management_tab()
+        if header == WebsiteLabel.LEAD_HEADER:
+            self.logger.info("**** teacher leads tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher leads tab test failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_leads_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_demo_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** teacher demo tab test ****")
+        header = self.teacherHomePage.get_demo_tab()
+        if header:
+            self.logger.info("**** teacher demo tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher demo tab test failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_demo_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+
+    @pytest.mark.sanity
+    def test_earnings_tab_title(self):
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        self.logger.info("**** teacher earning tab test ****")
+        header = self.teacherHomePage.get_earning_tab()
+        if header:
+            self.logger.info("**** teacher earning tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher earning tab test failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_earning_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+
+    @pytest.mark.sanity
+    def test_visibility_of_notification_tab(self):
+        self.logger.info("**** teacher notification tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_notification_tab()
+        if flag:
+            self.logger.info(
+                "**** teacher visibility of notification tab test passed ****"
+            )
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of notification tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_notification",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_raise_a_ticket_tab(self):
+        self.logger.info("**** teacher raise a ticket tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_raise_ticket_tab()
+        if flag:
+            self.logger.info(
+                "**** teacher visibility of raise ticket tab test passed ****"
+            )
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of raise ticket tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_ticket",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_visibility_of_support_tab(self):
+        self.logger.info("**** teacher help support tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_support_tab()
+        if flag == WebsiteLabel.SUPPORT_TAB:
+            self.logger.info(
+                "**** teacher visibility of help support tab test passed ****"
+            )
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of help support tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_help_support",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_visibility_of_helpdesk_tab(self):
+        self.logger.info("**** teacher helpdesk tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_helpdesk_tab()
+        if flag == WebsiteLabel.HELP_DESK:
+            self.logger.info(
+                "**** teacher visibility of helpdesk tab test passed ****"
+            )
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of helpdesk tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_helpdesk",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_resource_centre_tab(self):
+        self.logger.info("**** teacher raise a ticket tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_resource_centre_tab()
+        if flag == WebsiteLabel.RESOURCE_CENTRE:
+            self.logger.info(
+                "**** teacher visibility of resource centre tab test passed ****"
+            )
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of resource centre tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_ticket",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+
+    @pytest.mark.sanity
+    def test_profile_icon_click(self):
+        self.logger.info("**** teacher profile icon test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_profile_icon()
+        if flag == WebsiteLabel.PROFILE_ICON:
+            self.logger.info("**** teacher visibility of profile icon test passed **** ")
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of profile icon failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_profile_icon",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+
+
+
+    @pytest.mark.sanity
+    def test_visibility_of_my_profile_tab(self):
+        self.logger.info("**** teacher profile tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_my_profile_tab()
+        if flag == WebsiteLabel.MY_PROFILE:
+            self.logger.info("**** teacher visibility of my profile tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of my profile tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_My_profile_tab",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_visibility_of_whiteboard_tab(self):
+        self.logger.info("**** teacher profile tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_practice_cueboard_tab()
+        if flag == WebsiteLabel.PRACTICE_CUEBOARD:
+            self.logger.info("**** teacher visibility of profile tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of profile tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_profile_cueboard",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    # @pytest.mark.sanity
+    # def test_visibility_of_review_tab(self):
+    #     self.logger.info("**** teacher profile tab test ****")
+    #     self.teacherHomePage = TeacherHomePage(self.driver)
+    #     flag = self.teacherHomePage.get_reviews_tab()
+    #     if flag == WebsiteLabel.REVIEWS:
+    #         self.logger.info("**** teacher visibility of profile tab test passed ****")
+    #         assert True
+    #     else:
+    #         self.logger.error("**** teacher visibility of profile tab failed****")
+    #         allure.attach(
+    #             self.driver.get_screenshot_as_png(),
+    #             name="test_teacher_profile",
+    #             attachment_type=AttachmentType.PNG,
+    #         )
+    #         assert False
+
+    @pytest.mark.sanity
+    def test_visibility_of_system_check_tab(self):
+        self.logger.info("**** teacher profile tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_system_check_tab()
+        if flag:
+            self.logger.info("**** teacher visibility of profile tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of profile tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_profile",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_visibility_of_logout_all_session_tab(self):
+        self.logger.info("**** teacher profile tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_logout_all_session_tab()
+        if flag:
+            self.logger.info("**** teacher visibility of profile tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of profile tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_profile",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+    @pytest.mark.sanity
+    def test_visibility_of_logout_tab(self):
+        self.logger.info("**** teacher profile tab test ****")
+        self.teacherHomePage = TeacherHomePage(self.driver)
+        flag = self.teacherHomePage.get_logout_tab()
+        if flag:
+            self.logger.info("**** teacher visibility of profile tab test passed ****")
+            assert True
+        else:
+            self.logger.error("**** teacher visibility of profile tab failed****")
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                name="test_teacher_profile",
+                attachment_type=AttachmentType.PNG,
+            )
+            assert False
+
+
